@@ -13,8 +13,9 @@
     "target": "es2015",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@shared/*": ["app/shared/*"],
-      "@login/*": ["app/login/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@login/*": ["src/app/login/*"],
+      "@contacts/*": ["src/app/contacts/*"]
     }
   },
   "angularCompilerOptions": {
