@@ -1,2 +1,11 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+$navBarHeight: 64px;
+.app-page-content {
+  height: calc(100vh - #{$navBarHeight});
+}
+
+app-root *:focus {
+  outline: none;
+}
