@@ -40,7 +40,7 @@ export class StorageService {
     return !!this.getUserByToken();
   }
 
-  private getStorageByKey(
+  public getStorageByKey(
     what: SESSION_STORAGE_KEYS
   ): ILoginData[] | IContact[] {
     const storedData = sessionStorage.getItem(what);

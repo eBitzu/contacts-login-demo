@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StorageService } from '../services';
 import { RoutesEnum } from '../models/routes';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService, private router: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -19,6 +19,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
   private validateLoggedIn(state: RouterStateSnapshot) {
     const isUserLoggedIn = this.storageService.isUserLoggedIn();
-    return state.url.includes(RoutesEnum.LOGIN) ? !isUserLoggedIn : isUserLoggedIn;
+    return state.url.includes(RoutesEnum.LOGIN) ? !isUserLoggedIn : isUserLoggedIn ? true : this.router.navigate([RoutesEnum.LOGIN]);
   }
 }
