@@ -5,10 +5,11 @@ import { ContactsRoutingModule } from './contacts-routing.module';
 import { contactsPages } from './pages';
 import { SharedModule } from '../shared/shared.module';
 import { contactsServices } from './services';
+import { contactsComponents } from './components';
 
 
 @NgModule({
-  declarations: [...contactsPages],
+  declarations: [...contactsPages, ...contactsComponents],
   imports: [
     CommonModule,
     ContactsRoutingModule,
