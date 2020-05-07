@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guards';
+import { RoutesEnum } from './shared/models/routes';
 
-export enum RoutesEnum {
-  LOGIN = 'login',
-  CONTACTS = 'contacts'
-}
 export const routes: Routes = [{
     path: RoutesEnum.LOGIN,
     loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
@@ -13,7 +10,7 @@ export const routes: Routes = [{
   },
   {
     path: RoutesEnum.CONTACTS,
-    loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
+    loadChildren: () => import('./contacts/contacts.module').then((m) => m.ContactsModule),
     canActivateChild: [AuthGuard]
   },
   { path: '', redirectTo: RoutesEnum.CONTACTS, pathMatch: 'full' },

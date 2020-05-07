@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SESSION_STORAGE_KEYS } from './shared/models/session-storage';
 import { ILoginData, INavPaths } from './shared/models/login';
-import { routes, RoutesEnum } from './app-routing.module';
+import { routes } from './app-routing.module';
 import { StorageService } from './shared/services';
+import { RoutesEnum } from './shared/models/routes';
 
 @Component({
   selector: 'app-root',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RoutesEnum } from 'src/app/app-routing.module';
 import { StorageService } from '../services';
+import { RoutesEnum } from '../models/routes';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {

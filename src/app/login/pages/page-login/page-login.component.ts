@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { ILoginData } from 'src/app/shared/models/login';
 import { take, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { RoutesEnum } from 'src/app/app-routing.module';
 import { LoginService } from '../../services';
+import { RoutesEnum } from 'src/app/shared/models/routes';
 
 @Component({
   selector: 'app-page-login',
