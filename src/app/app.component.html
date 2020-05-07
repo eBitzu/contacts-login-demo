@@ -1,0 +1,27 @@
+  <mat-toolbar color="primary">
+    <div>
+      <ul ngbNav>
+        <li [ngbNavItem]="link" *ngFor="let link of links">
+          <button
+            mat-button
+            color="secondary"
+            ngbNavLink
+            [disabled]="link.isDisabled"
+            [routerLink]="link.path"
+          >
+            {{ link.path | uppercase }}
+          </button>
+        </li>
+      </ul>
+    </div>
+    <button
+      *ngIf="isLoggedIn"
+      mat-button
+      class="ml-auto"
+      color="secondary"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </mat-toolbar>
+  <router-outlet></router-outlet>

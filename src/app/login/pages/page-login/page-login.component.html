@@ -1,0 +1,38 @@
+<div class="d-flex position-relative align-items-center" style="height: calc(100vh - 64px);">
+  <div class="ml-auto mr-auto">
+    <h1 class="mb-4">Welcome To CompanyName</h1>
+    <h5 class="mb-5">
+      Sign in by entering the information below
+    </h5>
+    <form [formGroup]="loginForm">
+      <mat-form-field class="d-block">
+        <mat-label>Email Address</mat-label>
+        <mat-placeholder>mail@user.com</mat-placeholder>
+        <input type="text" matInput id="email" formControlName="email" />
+        <mat-error *ngIf="!!loginForm?.controls?.email?.errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="!!loginForm?.controls?.email?.errors?.email">Email is invalid</mat-error>
+      </mat-form-field>
+      <mat-form-field class="d-block">
+        <mat-label>Password</mat-label>
+        <mat-placeholder>&#9679;&#9679;&#9679;&#9679;&#9679;</mat-placeholder>
+        <input type="text" matInput id="password" formControlName="pass" />
+        <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.minlength">Password must contain 4 digits</mat-error>
+        <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.required">Password is required</mat-error>
+      </mat-form-field>
+
+      <div class="text-center mt-4">
+        <button
+          type="button"
+          class="btn-block"
+          color="primary"
+          mat-raised-button
+          (click)="submit()"
+          [disabled]="loginForm.invalid"
+        >
+          <span class="fas fa-unlock-alt"></span>
+          <span class="text-uppercase font-weight-bold"> Sign In </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
