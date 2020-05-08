@@ -4,7 +4,7 @@
     <h5 class="mb-5">
       Sign in by entering the information below
     </h5>
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (keyup.enter)="submit()">
       <mat-form-field class="d-block">
         <mat-label>Email Address</mat-label>
         <mat-placeholder>mail@user.com</mat-placeholder>
@@ -15,7 +15,7 @@
       <mat-form-field class="d-block">
         <mat-label>Password</mat-label>
         <mat-placeholder>&#9679;&#9679;&#9679;&#9679;&#9679;</mat-placeholder>
-        <input type="text" matInput id="password" formControlName="pass" />
+        <input type="password" matInput id="password" formControlName="pass" />
         <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.minlength">Password must contain 4 digits</mat-error>
         <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.required">Password is required</mat-error>
       </mat-form-field>
