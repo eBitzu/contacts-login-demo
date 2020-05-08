@@ -3,10 +3,10 @@
       <ul ngbNav>
         <li [ngbNavItem]="link" *ngFor="let link of links">
           <button
+            *ngIf="link.visible"
             mat-button
             color="secondary"
             ngbNavLink
-            [disabled]="link.isDisabled"
             [routerLink]="link.path"
           >
             {{ link.path | uppercase }}

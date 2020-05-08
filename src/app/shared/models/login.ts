@@ -6,5 +6,5 @@ export interface ILoginData {
 
 export interface INavPaths {
   path: string;
-  isDisabled: boolean;
+  visible: boolean;
 }

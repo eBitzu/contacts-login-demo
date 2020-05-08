@@ -4,6 +4,7 @@ import { ILoginData, INavPaths } from './shared/models/login';
 import { routes } from './app-routing.module';
 import { StorageService } from './shared/services';
 import { RoutesEnum } from './shared/models/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +12,24 @@ import { RoutesEnum } from './shared/models/routes';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private storageService: StorageService) {}
-  links: INavPaths[];
+  constructor(private storageService: StorageService, private router: Router) {}
+  get links(): INavPaths[] {
+    return [...routes]
+    .filter((v) => !['', '**'].includes(v.path))
+    .map((v) => ({ path: v.path, visible: v.path.includes(RoutesEnum.LOGIN) ? !this.isLoggedIn : this.isLoggedIn}));
+  }
   ngOnInit() {
-    this.links = [...routes]
-      .filter((v) => !['', '**'].includes(v.path))
-      .map((v) => ({ path: v.path, isDisabled: v.path.includes(RoutesEnum.LOGIN) ? this.isLoggedIn : !this.isLoggedIn}));
     const localStorage = sessionStorage.getItem(SESSION_STORAGE_KEYS.USERS);
     if (!localStorage) {
       // Dummy account data
       const users: ILoginData[] = [
         {
           email: 'lala@lala.com',
-          pass: '1234',
+          pass: '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', // 1234
         },
         {
           email: 'me@user.com',
-          pass: 'pass',
+          pass: 'W3IrMH/ObJRJBdEyaR1eSiIUt/6StziSDrP846kEIKGVEcMBCg53ErBU2u9bV7rVnsvZOzKA8hBXj1R/Su1NJQ==', // pass
         },
       ];
       sessionStorage.setItem(SESSION_STORAGE_KEYS.USERS, JSON.stringify(users));
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
   }
   logout() {
     this.storageService.invalidateCurrentToken();
+    this.router.navigate([RoutesEnum.LOGIN]);
   }
   get isLoggedIn(): boolean {
     return this.storageService.isUserLoggedIn();
