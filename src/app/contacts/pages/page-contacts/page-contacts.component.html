@@ -1,7 +1,11 @@
 <div class="container app-page-content">
   <div class="w-100 pt-5">
     <div class="d-flex">
-      <button class="ml-auto" color="primary" mat-raised-button title="Add Contact">
+      <button class="ml-auto" color="primary"
+        title="Add Contact"
+        mat-raised-button
+        (click)="addNewContact()"
+      >
         <mat-icon>add_circle_outline</mat-icon>
         <span class="ml-2">Add Contact</span>
       </button>
