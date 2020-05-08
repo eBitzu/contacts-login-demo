@@ -1,23 +1,26 @@
-<div mat-dialog-header class="mat-dialog-header" cdkFocusInitial>
+<div mat-dialog-header class="mb-4 h3">
   {{ title }}
 </div>
 <div mat-dialog-content>
   <div class="p-2">
-    <form [formGroup]="contactForm" *ngIf="formDefined">
+    <form [formGroup]="contactForm">
       <ng-container *ngFor="let cField of formFields">
         <ng-container *ngIf="cField.key !== contactFieldsEnum.ID">
-          <mat-form-field>
+          <mat-form-field class="d-block">
             <mat-label>{{cField.label}}</mat-label>
-            <input matInput type="text" [formControlName]="cField.key"/>
+            <input matInput type="text" formControlName="{{cField.key}}"/>
           </mat-form-field>
         </ng-container>
       </ng-container>
     </form>
   </div>
 </div>
-<div mat-dialog-actions class="float-right">
+<div mat-dialog-actions class="float-right mb-2 mt-2">
   <div>
-    <button mat-stroked-button id="btn_info_submit" [disabled]="contactForm.invalid">
+    <button mat-stroked-button class="mr-3" id="btn_info_cancel" [mat-dialog-close]="null">
+      <span>Cancel</span>
+    </button>
+    <button mat-stroked-button color="primary" id="btn_info_submit" (click)="submit()" [disabled]="contactForm.invalid">
       <span>{{buttonText}}</span>
     </button>
   </div>

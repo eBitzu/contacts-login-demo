@@ -31,7 +31,7 @@ export class PageContactsComponent implements OnInit, OnDestroy {
 
   addNewContact() {
     const dialogRef = this.matDialog.open(DialogContactComponent, {
-      width: '300',
+      width: '500px',
       data: null
     });
     dialogRef.afterClosed().pipe(

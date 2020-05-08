@@ -15,7 +15,7 @@ export class DialogContactComponent implements OnInit {
   public buttonText = 'Create';
   public contactFieldsEnum = contactFields;
   public formFields: IFormField[] = contactModel;
-  public formDefined = false;
+  public contactForm: FormGroup = this.fb.group({});
 
   constructor(
     private fb: FormBuilder,
@@ -23,13 +23,11 @@ export class DialogContactComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IContact
   ) { }
 
-  public contactForm: FormGroup;
 
   ngOnInit(): void {
-    this.contactForm = this.fb.group(this.formFields.map(({key, validation, initValue}) => ({
-      [key]: this.fb.control(initValue, validation)
-    })));
-    this.formDefined = true;
+    this.formFields.forEach(({key, validation, initValue}) => {
+      this.contactForm.addControl(key, this.fb.control(initValue, validation));
+    });
     if (this.data) {
       this.title = 'Edit contact';
       this.buttonText = 'Save changes';
