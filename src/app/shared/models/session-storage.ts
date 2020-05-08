@@ -1,4 +1,4 @@
-export enum SESSION_STORAGE_KEYS {
+export enum STORAGE_KEYS {
   USERS = 'users',
   CONTACTS = 'contacts'
 }

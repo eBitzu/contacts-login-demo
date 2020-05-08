@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SESSION_STORAGE_KEYS } from './shared/models/session-storage';
+import { STORAGE_KEYS } from './shared/models/session-storage';
 import { ILoginData, INavPaths } from './shared/models/login';
 import { routes } from './app-routing.module';
 import { StorageService } from './shared/services';
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     .map((v) => ({ path: v.path, visible: v.path.includes(RoutesEnum.LOGIN) ? !this.isLoggedIn : this.isLoggedIn}));
   }
   ngOnInit() {
-    const localStorage = sessionStorage.getItem(SESSION_STORAGE_KEYS.USERS);
+    const localStorage = sessionStorage.getItem(STORAGE_KEYS.USERS);
     if (!localStorage) {
       // Dummy account data
       const users: ILoginData[] = [
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
           pass: 'W3IrMH/ObJRJBdEyaR1eSiIUt/6StziSDrP846kEIKGVEcMBCg53ErBU2u9bV7rVnsvZOzKA8hBXj1R/Su1NJQ==', // pass
         },
       ];
-      sessionStorage.setItem(SESSION_STORAGE_KEYS.USERS, JSON.stringify(users));
+      sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
     }
   }
   logout() {

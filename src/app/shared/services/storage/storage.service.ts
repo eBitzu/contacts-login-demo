@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { makeId } from '../../utils/generators';
 import { ILoginData } from '../../models/login';
 import { IContact } from '../../models/contacts';
-import { SESSION_STORAGE_KEYS } from '../../models/session-storage';
+import { STORAGE_KEYS } from '../../models/session-storage';
 
 @Injectable()
 export class StorageService {
@@ -19,12 +19,12 @@ export class StorageService {
   }
   private updateUserStorage(email: string, user: ILoginData) {
     const data = this.getStorageByKey(
-      SESSION_STORAGE_KEYS.USERS
+      STORAGE_KEYS.USERS
     ) as ILoginData[];
     const storageUser = data.find((f) => f.email === email);
     if (user.token) {
       storageUser.token = user.token;
-      sessionStorage.setItem(SESSION_STORAGE_KEYS.USERS, JSON.stringify(data));
+      sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data));
     }
   }
 
@@ -40,14 +40,14 @@ export class StorageService {
   }
 
   public getStorageByKey(
-    what: SESSION_STORAGE_KEYS
+    what: STORAGE_KEYS
   ): ILoginData[] | IContact[] {
     try {
       switch (what) {
-        case SESSION_STORAGE_KEYS.USERS:
+        case STORAGE_KEYS.USERS:
           const storedData = sessionStorage.getItem(what);
           return (JSON.parse(storedData) as ILoginData[]) || [];
-        case SESSION_STORAGE_KEYS.CONTACTS:
+        case STORAGE_KEYS.CONTACTS:
           const storedContacts = localStorage.getItem(what);
           return (JSON.parse(storedContacts) as IContact[]) || [];
         default:
@@ -59,7 +59,7 @@ export class StorageService {
   }
 
   getUserFromStorage(email: string): ILoginData {
-    const data = this.getStorageByKey(SESSION_STORAGE_KEYS.USERS) as ILoginData[] || [];
+    const data = this.getStorageByKey(STORAGE_KEYS.USERS) as ILoginData[] || [];
     const findFn = (u: ILoginData) => u.email === email;
     return data.find(findFn);
   }
@@ -76,7 +76,7 @@ export class StorageService {
     );
     if (existingCookieToken) {
       const users = this.getStorageByKey(
-        SESSION_STORAGE_KEYS.USERS
+        STORAGE_KEYS.USERS
       ) as ILoginData[];
       const token = existingCookieToken.split('=').pop();
       const tokenUser = users.find(
@@ -88,8 +88,8 @@ export class StorageService {
   }
   updateContact(id: number, data: IContact) {
     let contacts =
-      (this.getStorageByKey(SESSION_STORAGE_KEYS.CONTACTS) as IContact[]) || [];
-    if (!id) {
+      (this.getStorageByKey(STORAGE_KEYS.CONTACTS) as IContact[]) || [];
+    if (id == null) {
       const newId = !!contacts.length ? contacts[contacts.length - 1].id + 1 : 1;
       contacts = [...contacts, {...data, id: newId}];
     } else {
@@ -101,6 +101,6 @@ export class StorageService {
     this.storeContacts(contacts);
   }
   storeContacts(contacts: IContact[]) {
-    localStorage.setItem(SESSION_STORAGE_KEYS.CONTACTS, JSON.stringify(contacts));
+    localStorage.setItem(STORAGE_KEYS.CONTACTS, JSON.stringify(contacts));
   }
 }

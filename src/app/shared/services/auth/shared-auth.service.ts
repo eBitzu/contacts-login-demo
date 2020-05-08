@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ILoginData } from '../../models/login';
 import { of, Observable, throwError } from 'rxjs';
-import { SESSION_STORAGE_KEYS } from '../../models/session-storage';
+import { STORAGE_KEYS } from '../../models/session-storage';
 import { StorageService } from '../storage/storage.service';
 
 import sha512 from '@cryptography/sha512';
