@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const importExport = [
   MatButtonModule,
@@ -14,7 +15,8 @@ const importExport = [
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatSortModule
+  MatSortModule,
+  MatDialogModule,
 ];
 
 @NgModule({

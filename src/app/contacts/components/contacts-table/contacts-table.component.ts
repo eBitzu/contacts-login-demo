@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { contactFields, IKeyLabel, IContact } from 'src/app/shared/models/contacts';
+import { IContact } from 'src/app/shared/models/contacts';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { contactModel } from '@contacts/models/contact-labels';
 
 @Component({
   selector: 'app-contacts-table',
@@ -11,28 +12,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ContactsTableComponent implements OnInit, OnChanges {
   @Input() contacts: IContact[] = [];
-  tableColumnDef: IKeyLabel[] = [
-    {
-      key: contactFields.ID,
-      label: 'ID'
-    },
-    {
-      key: contactFields.FIRST_NAME,
-      label: 'First Name'
-    },
-    {
-      key: contactFields.LAST_NAME,
-      label: 'Last Name'
-    },
-    {
-      key: contactFields.PHONE_NUMBER,
-      label: 'Phone Number'
-    },
-    {
-      key: contactFields.EMAIL,
-      label: 'Email'
-    }
-  ];
+  tableColumnDef = [...contactModel];
   displayedColumns: string[] = this.tableColumnDef.map(({key}) => key);
   dataSource = new MatTableDataSource<IContact>([]);
 
