@@ -14,7 +14,7 @@ export class DialogContactComponent implements OnInit {
   public title = 'Create new contact';
   public buttonText = 'Create';
   public contactFieldsEnum = contactFields;
-  public formFields: IFormField[] = contactModel;
+  public formFields: IFormField[] = [...contactModel];
   public contactForm: FormGroup = this.fb.group({});
 
   constructor(
@@ -32,6 +32,7 @@ export class DialogContactComponent implements OnInit {
       this.title = 'Edit contact';
       this.buttonText = 'Save changes';
       this.contactForm.setValue(this.data);
+      this.contactForm.markAsPristine();
     }
   }
 

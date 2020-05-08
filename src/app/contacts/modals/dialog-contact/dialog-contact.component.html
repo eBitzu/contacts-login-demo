@@ -1,4 +1,4 @@
-<div mat-dialog-header class="mb-4 h3">
+<div mat-dialog-header class="mb-4 h5">
   {{ title }}
 </div>
 <div mat-dialog-content>
@@ -6,7 +6,33 @@
     <form [formGroup]="contactForm" (keyup.enter)="submit()">
       <ng-container *ngFor="let cField of formFields">
         <ng-container *ngIf="cField.key !== contactFieldsEnum.ID">
-          <mat-form-field class="d-block">
+          <mat-form-field class="d-block mb-2">
+            <mat-error
+              *ngIf="contactForm.controls[cField.key]?.errors?.required"
+            >
+              Field is required
+            </mat-error>
+            <mat-error
+              *ngIf="
+                contactForm.controls[cField.key]?.errors?.email &&
+                cField.key === contactFieldsEnum.EMAIL
+              ">
+              Invalid email
+            </mat-error>
+            <ng-container *ngIf="cField.key === contactFieldsEnum.PHONE_NUMBER">
+              <mat-error
+                *ngIf="
+                  contactForm.controls[cField.key]?.errors?.minlength
+                ">
+                Phone number length is not met, required 10
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  contactForm.controls[cField.key]?.errors?.pattern
+                ">
+                Invalid phone number character
+              </mat-error>
+            </ng-container>
             <mat-label>{{ cField.label }}</mat-label>
             <input matInput type="text" formControlName="{{ cField.key }}" />
           </mat-form-field>
@@ -30,7 +56,7 @@
       color="primary"
       id="btn_info_submit"
       (click)="submit()"
-      [disabled]="contactForm.invalid && contactForm.dirty"
+      [disabled]="contactForm.invalid || contactForm.pristine"
     >
       <span>{{ buttonText }}</span>
     </button>
