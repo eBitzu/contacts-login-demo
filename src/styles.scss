@@ -6,6 +6,9 @@ $navBarHeight: 64px;
   height: calc(100vh - #{$navBarHeight});
 }
 
-app-root *:focus {
-  outline: none;
+app-root,
+.cdk-overlay-container {
+  & *:focus {
+    outline: none;
+  }
 }
