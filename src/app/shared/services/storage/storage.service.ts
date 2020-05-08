@@ -93,9 +93,13 @@ export class StorageService {
       const newId = !!contacts.length ? contacts[contacts.length - 1].id + 1 : 1;
       contacts = [...contacts, {...data, id: newId}];
     } else {
-      const found = contacts.findIndex((user) => user.id === id);
-      if (found > -1) {
-        contacts.splice(found, 1, data);
+      const foundIndex = contacts.findIndex((user) => user.id === id);
+      if (foundIndex > -1) {
+        if (data) {
+          contacts.splice(foundIndex, 1, data);
+        } else {
+          contacts.splice(foundIndex, 1);
+        }
       }
     }
     this.storeContacts(contacts);
