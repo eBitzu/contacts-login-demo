@@ -5,7 +5,6 @@
           <button
             *ngIf="link.visible"
             mat-button
-            color="secondary"
             ngbNavLink
             [routerLink]="link.path"
           >
@@ -18,7 +17,6 @@
       *ngIf="isLoggedIn"
       mat-button
       class="ml-auto"
-      color="secondary"
       (click)="logout()"
     >
       Logout

@@ -3,12 +3,12 @@
 </div>
 <div mat-dialog-content>
   <div class="p-2">
-    <form [formGroup]="contactForm">
+    <form [formGroup]="contactForm" (keyup.enter)="submit()">
       <ng-container *ngFor="let cField of formFields">
         <ng-container *ngIf="cField.key !== contactFieldsEnum.ID">
           <mat-form-field class="d-block">
-            <mat-label>{{cField.label}}</mat-label>
-            <input matInput type="text" formControlName="{{cField.key}}"/>
+            <mat-label>{{ cField.label }}</mat-label>
+            <input matInput type="text" formControlName="{{ cField.key }}" />
           </mat-form-field>
         </ng-container>
       </ng-container>
@@ -17,11 +17,22 @@
 </div>
 <div mat-dialog-actions class="float-right mb-2 mt-2">
   <div>
-    <button mat-stroked-button class="mr-3" id="btn_info_cancel" [mat-dialog-close]="null">
+    <button
+      mat-stroked-button
+      class="mr-3"
+      id="btn_info_cancel"
+      [mat-dialog-close]="null"
+    >
       <span>Cancel</span>
     </button>
-    <button mat-stroked-button color="primary" id="btn_info_submit" (click)="submit()" [disabled]="contactForm.invalid">
-      <span>{{buttonText}}</span>
+    <button
+      mat-stroked-button
+      color="primary"
+      id="btn_info_submit"
+      (click)="submit()"
+      [disabled]="contactForm.invalid && contactForm.dirty"
+    >
+      <span>{{ buttonText }}</span>
     </button>
   </div>
 </div>
