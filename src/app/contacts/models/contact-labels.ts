@@ -10,7 +10,7 @@ export const contactModel: IFormField[] = [
   {
     key: contactFields.ID,
     label: 'ID',
-    initValue: 0,
+    initValue: null,
     validation: [],
   },
   {
@@ -28,7 +28,7 @@ export const contactModel: IFormField[] = [
   {
     key: contactFields.PHONE_NUMBER,
     label: 'Phone Number',
-    validation: [Validators.required, Validators.minLength(10), Validators.pattern('[0-9 ]{11}')],
+    validation: [Validators.required, Validators.minLength(10), Validators.pattern('[0-9]{10}')],
     initValue: '',
   },
   {

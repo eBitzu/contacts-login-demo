@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from 'src/app/shared/services';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
 import { IContact } from 'src/app/shared/models/contacts';
 import { STORAGE_KEYS } from 'src/app/shared/models/session-storage';
 
@@ -10,6 +10,16 @@ export class ContactsService {
   constructor(private storageService: StorageService) { }
   private contactsSubject = new BehaviorSubject<IContact[]>([]);
 
+  saveContact(c: IContact) {
+    // simulate api obs
+    try {
+      this.storageService.updateContact(c.id, c);
+      this.requestContacts();
+      return of(true);
+    } catch (er) {
+      return throwError({message: 'Request failed'});
+    }
+  }
 
   requestContacts(): void {
     const contacts = this.storageService.getStorageByKey(STORAGE_KEYS.CONTACTS) as IContact[];

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
+import { takeUntil, take, catchError } from 'rxjs/operators';
 import { IContact } from 'src/app/shared/models/contacts';
 
 import { ContactsService } from '../../services';
@@ -40,7 +40,15 @@ export class PageContactsComponent implements OnInit, OnDestroy {
       if (!c) {
         return;
       }
-      // do other stuff
+      this.contactsService.saveContact(c).pipe(
+        take(1),
+        catchError((er) => {
+          console.error(er.message);
+          return of(false);
+        })
+      ).subscribe((r: boolean) => {
+        alert(r ? 'User saved' : 'Unable to save user');
+      });
     });
   }
 
