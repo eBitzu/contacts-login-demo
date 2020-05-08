@@ -4,6 +4,8 @@ import { of, Observable, throwError } from 'rxjs';
 import { SESSION_STORAGE_KEYS } from '../../models/session-storage';
 import { StorageService } from '../storage/storage.service';
 
+import sha512 from '@cryptography/sha512';
+
 @Injectable()
 export class SharedAuthService {
 
@@ -14,7 +16,7 @@ export class SharedAuthService {
       this.storageService.invalidateCurrentToken();
       return throwError({message: 'User not found'});
     }
-    if (storageUser.pass !== cred.pass) {
+    if (storageUser.pass !== btoa(sha512(cred.pass))) {
       this.storageService.invalidateCurrentToken();
       return throwError({message: 'Invalid password'});
     }
