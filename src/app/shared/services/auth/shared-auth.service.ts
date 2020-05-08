@@ -11,7 +11,7 @@ export class SharedAuthService {
 
   constructor(private storageService: StorageService) { }
   validateCredentials(cred: ILoginData): Observable<any> {
-    const storageUser = this.storageService.getFromStorage(cred.email, SESSION_STORAGE_KEYS.USERS) as ILoginData;
+    const storageUser = this.storageService.getUserFromStorage(cred.email);
     if (!storageUser) {
       this.storageService.invalidateCurrentToken();
       return throwError({message: 'User not found'});

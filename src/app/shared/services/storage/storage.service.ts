@@ -7,10 +7,9 @@ import { SESSION_STORAGE_KEYS } from '../../models/session-storage';
 @Injectable()
 export class StorageService {
   setUserCookie(mail: string) {
-    const user: ILoginData = this.getFromStorage(
+    const user: ILoginData = this.getUserFromStorage(
       mail,
-      SESSION_STORAGE_KEYS.USERS
-    ) as ILoginData;
+    );
     user.token = makeId();
     this.removeCookie();
     document.cookie = `SESSIONID=${user.token}; expires=${new Date(
@@ -43,13 +42,14 @@ export class StorageService {
   public getStorageByKey(
     what: SESSION_STORAGE_KEYS
   ): ILoginData[] | IContact[] {
-    const storedData = sessionStorage.getItem(what);
     try {
       switch (what) {
         case SESSION_STORAGE_KEYS.USERS:
+          const storedData = sessionStorage.getItem(what);
           return (JSON.parse(storedData) as ILoginData[]) || [];
         case SESSION_STORAGE_KEYS.CONTACTS:
-          return (JSON.parse(storedData) as IContact[]) || [];
+          const storedContacts = localStorage.getItem(what);
+          return (JSON.parse(storedContacts) as IContact[]) || [];
         default:
           return [];
       }
@@ -58,9 +58,9 @@ export class StorageService {
     }
   }
 
-  getFromStorage(email: string, what: SESSION_STORAGE_KEYS) {
-    const data: any[] = this.getStorageByKey(what) || [];
-    const findFn = (u: IContact | ILoginData) => u.email === email;
+  getUserFromStorage(email: string): ILoginData {
+    const data = this.getStorageByKey(SESSION_STORAGE_KEYS.USERS) as ILoginData[] || [];
+    const findFn = (u: ILoginData) => u.email === email;
     return data.find(findFn);
   }
 
@@ -86,17 +86,21 @@ export class StorageService {
     }
     return null;
   }
-  updateContacts(email: string, data: IContact) {
-    let users =
+  updateContact(id: number, data: IContact) {
+    let contacts =
       (this.getStorageByKey(SESSION_STORAGE_KEYS.CONTACTS) as IContact[]) || [];
-    if (!email) {
-      users = [...users, data];
+    if (!id) {
+      const newId = !!contacts.length ? contacts[contacts.length - 1].id + 1 : 1;
+      contacts = [...contacts, {...data, id: newId}];
     } else {
-      const found = users.findIndex((user) => user.email === email);
+      const found = contacts.findIndex((user) => user.id === id);
       if (found > -1) {
-        users.splice(found, 1, data);
+        contacts.splice(found, 1, data);
       }
     }
-    localStorage.setItem('users', JSON.stringify(users));
+    this.storeContacts(contacts);
+  }
+  storeContacts(contacts: IContact[]) {
+    localStorage.setItem(SESSION_STORAGE_KEYS.CONTACTS, JSON.stringify(contacts));
   }
 }
