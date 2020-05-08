@@ -28,7 +28,7 @@ export const contactModel: IFormField[] = [
   {
     key: contactFields.PHONE_NUMBER,
     label: 'Phone Number',
-    validation: [Validators.required, Validators.minLength(10), Validators.pattern('[0-9]{10}')],
+    validation: [Validators.required, Validators.minLength(10), Validators.pattern('[0-9]{1,10}')],
     initValue: '',
   },
   {

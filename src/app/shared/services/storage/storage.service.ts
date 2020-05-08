@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { makeId } from '../../utils/generators';
 import { ILoginData } from '../../models/login';
-import { IContact } from '../../models/contacts';
+import { IContact, contactFields } from '../../models/contacts';
 import { STORAGE_KEYS } from '../../models/session-storage';
 
 @Injectable()
@@ -91,9 +91,9 @@ export class StorageService {
       (this.getStorageByKey(STORAGE_KEYS.CONTACTS) as IContact[]) || [];
     if (id == null) {
       const newId = !!contacts.length ? contacts[contacts.length - 1].id + 1 : 1;
-      contacts = [...contacts, {...data, id: newId}];
+      contacts = [...contacts, {...data, [contactFields.ID]: newId}];
     } else {
-      const foundIndex = contacts.findIndex((user) => user.id === id);
+      const foundIndex = contacts.findIndex((user) => user[contactFields.ID] === id);
       if (foundIndex > -1) {
         if (data) {
           contacts.splice(foundIndex, 1, data);
