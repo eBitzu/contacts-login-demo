@@ -34,7 +34,7 @@ export const contactModel: IFormField[] = [
   {
     key: contactFields.EMAIL,
     label: 'Email',
-    validation: [Validators.required, Validators.minLength(10)],
+    validation: [Validators.required, Validators.email],
     initValue: '',
   }
 ];
