@@ -6,6 +6,17 @@ import { StorageService } from './shared/services';
 import { RoutesEnum } from './shared/models/routes';
 import { Router } from '@angular/router';
 
+export const users: ILoginData[] = [
+  {
+    email: 'lala@lala.com',
+    pass: '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', // 1234
+  },
+  {
+    email: 'me@user.com',
+    pass: 'W3IrMH/ObJRJBdEyaR1eSiIUt/6StziSDrP846kEIKGVEcMBCg53ErBU2u9bV7rVnsvZOzKA8hBXj1R/Su1NJQ==', // pass
+  },
+];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,16 +33,6 @@ export class AppComponent implements OnInit {
     const localStorage = sessionStorage.getItem(STORAGE_KEYS.USERS);
     if (!localStorage) {
       // Dummy account data
-      const users: ILoginData[] = [
-        {
-          email: 'lala@lala.com',
-          pass: '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==', // 1234
-        },
-        {
-          email: 'me@user.com',
-          pass: 'W3IrMH/ObJRJBdEyaR1eSiIUt/6StziSDrP846kEIKGVEcMBCg53ErBU2u9bV7rVnsvZOzKA8hBXj1R/Su1NJQ==', // pass
-        },
-      ];
       sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
     }
   }
