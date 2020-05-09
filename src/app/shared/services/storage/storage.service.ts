@@ -30,6 +30,9 @@ export class StorageService {
 
   invalidateCurrentToken() {
     const user = this.getUserByToken();
+    if (!user) {
+      return;
+    }
     user.token = null;
     this.removeCookie();
     this.updateUserStorage(user.email, user);

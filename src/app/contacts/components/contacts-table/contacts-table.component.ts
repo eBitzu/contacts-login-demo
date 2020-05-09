@@ -54,7 +54,7 @@ export class ContactsTableComponent implements OnInit, OnChanges, AfterViewInit 
     this.dataSource.sort = this.sort;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes.contacts) {
+    if (!!changes.contacts && !!changes.contacts.currentValue) {
       this.dataSource.data = this.contacts;
     }
   }
