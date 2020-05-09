@@ -5,8 +5,9 @@ import { STORAGE_KEYS } from '@shared/models/session-storage';
 import { StorageService } from '@shared/services';
 import { Router } from '@angular/router';
 import { RoutesEnum } from '@shared/models/routes';
+import { MaterialModule } from '@shared/material.module';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   let fixture;
   let app: AppComponent;
   let service: StorageService;
@@ -14,10 +15,11 @@ fdescribe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        MaterialModule,
         RouterTestingModule,
       ],
       providers: [
-        StorageService
+        StorageService,
       ],
       declarations: [
         AppComponent
