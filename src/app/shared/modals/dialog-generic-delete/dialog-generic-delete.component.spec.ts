@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogGenericDeleteComponent } from './dialog-generic-delete.component';
+import { DialogGenericDeleteComponent, IDeleteDialog } from './dialog-generic-delete.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('DialogGenericDeleteComponent', () => {
   let component: DialogGenericDeleteComponent;
@@ -8,9 +9,17 @@ describe('DialogGenericDeleteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogGenericDeleteComponent ]
-    })
-    .compileComponents();
+      declarations: [DialogGenericDeleteComponent],
+      providers: [
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            text: 'Are you sure',
+            title: 'Delete contact'
+          } as IDeleteDialog,
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
