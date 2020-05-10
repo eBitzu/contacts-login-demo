@@ -6,7 +6,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRefMock } from '@shared/mocks/test-mocks.classes';
 import { IContact } from '@shared/models/contacts';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MaterialModule } from '@shared/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DialogGenericDeleteComponent, IDeleteDialog } from './dialog-generic-delete.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MaterialModule } from '@shared/material.module';
 
 describe('DialogGenericDeleteComponent', () => {
   let component: DialogGenericDeleteComponent;
@@ -19,6 +20,7 @@ describe('DialogGenericDeleteComponent', () => {
           } as IDeleteDialog,
         },
       ],
+      imports: [MaterialModule]
     }).compileComponents();
   }));
 

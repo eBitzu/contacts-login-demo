@@ -6,11 +6,14 @@ import { STORAGE_KEYS } from '../../models/session-storage';
 
 @Injectable()
 export class StorageService {
+  generateToken() {
+    return makeId();
+  }
   setUserCookie(mail: string) {
     const user: ILoginData = this.getUserFromStorage(
       mail,
     );
-    user.token = makeId();
+    user.token = this.generateToken();
     this.removeCookie();
     document.cookie = `SESSIONID=${user.token}; expires=${new Date(
       new Date().getTime() + 30 * 60 * 1000
@@ -22,7 +25,7 @@ export class StorageService {
       STORAGE_KEYS.USERS
     ) as ILoginData[];
     const storageUser = data.find((f) => f.email === email);
-    if (user.token) {
+    if (user.hasOwnProperty('token')) {
       storageUser.token = user.token;
       sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data));
     }
