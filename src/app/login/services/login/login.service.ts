@@ -7,6 +7,7 @@ export class LoginService {
   constructor(private sharedAuthService: SharedAuthService) { }
   /**
    * This function uses a shared auth method that can be later replaced
+   *
    * @param credentials : login credentials
    */
   checkLogin(credentials: ILoginData) {

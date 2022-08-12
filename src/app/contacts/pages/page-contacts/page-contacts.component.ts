@@ -14,23 +14,18 @@ import { DialogGenericDeleteComponent } from '@shared/modals';
   styles: [],
 })
 export class PageContactsComponent implements OnInit, OnDestroy {
+  contacts: IContact[] = [];
+  private unsubscribe = new Subject();
   constructor(
     private contactsService: ContactsService,
     private matDialog: MatDialog
-  ) {}
-  contacts: IContact[] = [];
-
-  private unsubscribe = new Subject();
-  private errorHandler = (er) => {
-    console.error('[contacts-page]', er.message);
-    return of(null);
-  }
+  ) { }
 
   ngOnInit(): void {
     this.listenForContacts();
   }
   ngOnDestroy() {
-    this.unsubscribe.next();
+    this.unsubscribe.next(null);
     this.unsubscribe.complete();
   }
 
@@ -87,4 +82,9 @@ export class PageContactsComponent implements OnInit, OnDestroy {
     });
     this.contactsService.requestContacts();
   }
+
+  private errorHandler = (er: Error) => {
+    console.error('[contacts-page]', er.message);
+    return of(null);
+  };
 }

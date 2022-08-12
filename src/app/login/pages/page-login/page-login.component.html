@@ -1,5 +1,5 @@
 <div class="d-flex pt-5 position-relative app-page-content">
-  <div class="ml-auto mr-auto mt-5">
+  <div class="mx-auto mt-5">
     <h1 class="mb-3">Welcome To 'AppName'</h1>
     <div class="mb-5">
       Sign in by entering the information below
@@ -9,15 +9,15 @@
         <mat-label>Email Address</mat-label>
         <mat-placeholder>mail@user.com</mat-placeholder>
         <input type="text" matInput id="email" formControlName="email" />
-        <mat-error *ngIf="!!loginForm?.controls?.email?.errors?.required">Email is required</mat-error>
-        <mat-error *ngIf="!!loginForm?.controls?.email?.errors?.email">Email is invalid</mat-error>
+        <mat-error *ngIf="!!loginForm.controls['email']?.errors?.['required']">Email is required</mat-error>
+        <mat-error *ngIf="!!loginForm.controls['email']?.errors?.['email']">Email is invalid</mat-error>
       </mat-form-field>
       <mat-form-field class="d-block">
         <mat-label>Password</mat-label>
         <mat-placeholder>&#9679;&#9679;&#9679;&#9679;&#9679;</mat-placeholder>
         <input type="password" matInput id="password" formControlName="pass" />
-        <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.minlength">Password must contain 4 digits</mat-error>
-        <mat-error *ngIf="!!loginForm?.controls?.pass?.errors?.required">Password is required</mat-error>
+        <mat-error *ngIf="!!loginForm.controls['pass']?.errors?.['minlength']">Password must contain 4 digits</mat-error>
+        <mat-error *ngIf="!!loginForm.controls['pass']?.errors?.['required']">Password is required</mat-error>
       </mat-form-field>
 
       <div class="text-center mt-4 mb-4">
