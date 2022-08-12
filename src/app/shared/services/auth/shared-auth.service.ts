@@ -9,16 +9,16 @@ import sha512 from '@cryptography/sha512';
 export class SharedAuthService {
   constructor(private storageService: StorageService) { }
 
-  validateCredentials(cred: ILoginData): Observable<any> {
+  validateCredentials(cred: ILoginData): Observable<boolean> {
     const storageUser = this.storageService.getUserFromStorage(cred.email);
     if (!storageUser) {
       this.storageService.invalidateCurrentToken();
-      return throwError(() => of({message: 'User not found'}));
+      return throwError(() => ({message: 'User not found'}));
     }
     const fromSha = btoa(sha512(cred.pass, 'binary'));
     if (storageUser.pass !== fromSha) {
       this.storageService.invalidateCurrentToken();
-      return throwError(() => of({message: 'Invalid password'}));
+      return throwError(() => ({message: 'Invalid password'}));
     }
     this.storageService.setUserCookie(cred.email);
     return of(true);

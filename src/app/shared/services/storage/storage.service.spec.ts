@@ -5,10 +5,11 @@ import { users } from 'src/app/app.component';
 import { STORAGE_KEYS } from '@shared/models/session-storage';
 import { fakeContact } from '@contacts/modals/dialog-contact/dialog-contact.component.spec';
 import { contactFields } from '@shared/models/contacts';
+import { ILoginData } from '@shared/models/login';
 
 describe('StorageService', () => {
   let service: StorageService;
-  const initUser =
+  const initUser: ILoginData =
   {
     email: users[0].email,
     pass: users[0].pass,
@@ -24,6 +25,7 @@ describe('StorageService', () => {
 
   afterEach(() => {
     window.document.cookie = '';
+    sessionStorage.clear();
   });
 
   it('should be created', () => {

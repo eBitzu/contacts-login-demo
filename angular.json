@@ -138,7 +138,6 @@
       }
     }
   },
-  "defaultProject": "login-ng9",
   "cli": {
     "schematicCollections": [
       "@angular-eslint/schematics"

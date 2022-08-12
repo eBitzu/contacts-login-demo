@@ -30,11 +30,11 @@ export class PageLoginComponent {
       .pipe(
         take(1),
         catchError((err) => {
-          console.error(err);
+          console.error('Login failed!');
           return of(false);
         })
       )
-      .subscribe((valid: true) => {
+      .subscribe((valid: boolean) => {
         if (!valid) {
           alert('Login failed!');
           return;

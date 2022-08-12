@@ -12,8 +12,8 @@ export class StorageService {
 
   setUserCookie(mail: string) {
     const user: ILoginData = this.getUserFromStorage(
-      mail,
-    );
+      mail
+    ) || {email: '', pass: '', token: null};
     user.token = this.generateToken();
     this.removeCookie();
     document.cookie = `SESSIONID=${user.token}; expires=${new Date(
@@ -111,7 +111,7 @@ export class StorageService {
       STORAGE_KEYS.USERS
     ) as ILoginData[];
     const storageUser = data.find((f) => f.email === email);
-    if (user.hasOwnProperty('token')) {
+    if (!!storageUser && user.hasOwnProperty('token')) {
       storageUser.token = user.token;
       sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data));
     }
