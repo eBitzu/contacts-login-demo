@@ -1,6 +1,6 @@
-# Login and contact page with Angular9
+# Login and contact page with Angular14
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14
 
 ## The Code challenge
 
