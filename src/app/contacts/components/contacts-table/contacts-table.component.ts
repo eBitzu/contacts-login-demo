@@ -28,6 +28,15 @@ import { contactModel } from '@contacts/models/contact-labels';
 })
 export class ContactsTableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() contacts: IContact[] = [];
+
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  // set to false because under ng-if
+
+  @Output()
+  readonly deleteContact = new EventEmitter<IContact>();
+  @Output()
+  readonly editContact = new EventEmitter<IContact>();
+
   tableColumnDef = [...contactModel];
   displayedColumns: string[] = [
     ...this.tableColumnDef.map(({ key }) => key),
@@ -37,15 +46,6 @@ export class ContactsTableComponent implements OnInit, OnChanges, AfterViewInit 
   headerWidth = `${Math.ceil(100 / this.displayedColumns.length)}%`;
   dataSource = new MatTableDataSource<IContact>([]);
 
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  // set to false because under ng-if
-
-  @Output()
-  readonly deleteContact = new EventEmitter<IContact>();
-  @Output()
-  readonly editContact = new EventEmitter<IContact>();
-  constructor() {}
-
   ngOnInit(): void {
     this.dataSource.data = this.contacts;
     this.dataSource.sort = this.sort;
@@ -54,7 +54,7 @@ export class ContactsTableComponent implements OnInit, OnChanges, AfterViewInit 
     this.dataSource.sort = this.sort;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes.contacts && !!changes.contacts.currentValue) {
+    if (!!changes['contacts'] && !!changes['contacts'].currentValue) {
       this.dataSource.data = this.contacts;
     }
   }

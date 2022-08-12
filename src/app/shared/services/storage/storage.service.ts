@@ -9,26 +9,17 @@ export class StorageService {
   generateToken() {
     return makeId();
   }
+
   setUserCookie(mail: string) {
     const user: ILoginData = this.getUserFromStorage(
-      mail,
-    );
+      mail
+    ) || {email: '', pass: '', token: null};
     user.token = this.generateToken();
     this.removeCookie();
     document.cookie = `SESSIONID=${user.token}; expires=${new Date(
       new Date().getTime() + 30 * 60 * 1000
     ).toUTCString()}; path=/;`;
     this.updateUserStorage(mail, user);
-  }
-  private updateUserStorage(email: string, user: ILoginData) {
-    const data = this.getStorageByKey(
-      STORAGE_KEYS.USERS
-    ) as ILoginData[];
-    const storageUser = data.find((f) => f.email === email);
-    if (user.hasOwnProperty('token')) {
-      storageUser.token = user.token;
-      sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data));
-    }
   }
 
   invalidateCurrentToken() {
@@ -45,7 +36,7 @@ export class StorageService {
     return !!this.getUserByToken();
   }
 
-  public getStorageByKey(
+  getStorageByKey(
     what: STORAGE_KEYS
   ): ILoginData[] | IContact[] {
     try {
@@ -70,28 +61,6 @@ export class StorageService {
     return data.find(findFn);
   }
 
-  private removeCookie = () => {
-    document.cookie =
-      'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  }
-
-  private getUserByToken(): ILoginData {
-    const currentCookies = document.cookie.split('; ');
-    const existingCookieToken = currentCookies.find((cookieString) =>
-      cookieString.includes('SESSIONID')
-    );
-    if (existingCookieToken) {
-      const users = this.getStorageByKey(
-        STORAGE_KEYS.USERS
-      ) as ILoginData[];
-      const token = existingCookieToken.split('=').pop();
-      const tokenUser = users.find(
-        (user) => !!user.token && user.token === token
-      );
-      return tokenUser;
-    }
-    return null;
-  }
   updateContact(id: number, data: IContact) {
     let contacts =
       (this.getStorageByKey(STORAGE_KEYS.CONTACTS) as IContact[]) || [];
@@ -112,5 +81,39 @@ export class StorageService {
   }
   storeContacts(contacts: IContact[]) {
     localStorage.setItem(STORAGE_KEYS.CONTACTS, JSON.stringify(contacts));
+  }
+
+  private removeCookie = () => {
+    document.cookie =
+      'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  };
+
+  private getUserByToken(): ILoginData {
+    const currentCookies = document.cookie.split('; ');
+    const existingCookieToken = currentCookies.find((cookieString) =>
+      cookieString.includes('SESSIONID')
+    );
+    if (existingCookieToken) {
+      const users = this.getStorageByKey(
+        STORAGE_KEYS.USERS
+      ) as ILoginData[];
+      const token = existingCookieToken.split('=').pop();
+      const tokenUser = users.find(
+        (user) => !!user.token && user.token === token
+      );
+      return tokenUser;
+    }
+    return null;
+  }
+
+  private updateUserStorage(email: string, user: ILoginData) {
+    const data = this.getStorageByKey(
+      STORAGE_KEYS.USERS
+    ) as ILoginData[];
+    const storageUser = data.find((f) => f.email === email);
+    if (!!storageUser && user.hasOwnProperty('token')) {
+      storageUser.token = user.token;
+      sessionStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data));
+    }
   }
 }

@@ -8,13 +8,13 @@
         <ng-container *ngIf="cField.key !== contactFieldsEnum.ID">
           <mat-form-field class="d-block mb-2">
             <mat-error
-              *ngIf="contactForm.controls[cField.key]?.errors?.required"
+              *ngIf="contactForm.controls[cField.key]?.errors?.['required']"
             >
               Field is required
             </mat-error>
             <mat-error
               *ngIf="
-                contactForm.controls[cField.key]?.errors?.email &&
+                contactForm.controls[cField.key]?.errors?.['email'] &&
                 cField.key === contactFieldsEnum.EMAIL
               ">
               Invalid email
@@ -22,13 +22,13 @@
             <ng-container *ngIf="cField.key === contactFieldsEnum.PHONE_NUMBER">
               <mat-error
                 *ngIf="
-                  contactForm.controls[cField.key]?.errors?.minlength
+                  contactForm.controls[cField.key]?.errors?.['minlength']
                 ">
                 Phone number length is not met, required 10
               </mat-error>
               <mat-error
                 *ngIf="
-                  contactForm.controls[cField.key]?.errors?.pattern
+                  contactForm.controls[cField.key]?.errors?.['pattern']
                 ">
                 Invalid phone number character
               </mat-error>
